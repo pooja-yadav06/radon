@@ -7,6 +7,77 @@ router.get('/students/:name', function(req, res) {
     res.send(studentName)
 })
 
+
+
+ 
+let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ],
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ],
+       },
+   ]
+ 
+   router.post('/players', function (req, res) {
+  
+    let newPlayer = req.body
+    let newPlayersName = newPlayer.name
+    let isNameRepeated = false
+
+    //let player = players.find(p => p.name == newPlayersName)
+    for(let i = 0; i < players.length; i++) {
+        if(players[i].name == newPlayersName) {
+            isNameRepeated = true;
+            break;
+        }
+    }
+    if (isNameRepeated) {
+        
+        res.send("This player was already added!")
+    } else {
+        
+        players.push(newPlayer)
+        res.send(players)
+    }
+});
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 router.get("/random" , function(req, res) {
     res.send("hi there")
 })
@@ -63,7 +134,7 @@ router.post("/test-post-3", function(req, res) {
 
 
 
-router.post("/test-post-4", function(req, res) {
+router.post("/test-post-6", function(req, res) {
     let arr= [ 12, "functionup"]
     let ele= req.body.element
     arr.push(ele)
