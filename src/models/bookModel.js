@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema( {
-    bookName: String, 
+    bookName:{ type: String,
+        required: true}, 
     authorName: String, 
     tags: [String],
-    
-    isPublished: Boolean,
+    year:{type: Number,
+    default: 2021},
     prices: {
-        indianPrice: String,
-        europePrice: String,
+        INR:Number 
     },
+    totalPages:Number,
+    stockAvailable:Boolean,
+    
     sales: {type: Number, default: 10}
 }, { timestamps: true });
 
