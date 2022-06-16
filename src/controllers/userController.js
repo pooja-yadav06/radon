@@ -106,9 +106,22 @@ let userId = req.params.userId;
   let deletedData=await userModel.findOneAndUpdate({_id:userId},{isDeleted:true})
   res.send({status:"deleted",deletedUser:deletedData})
 }
+let postMessage=async function(req,res){
+  let message=req.body.message
+ let userId = req.params.userId;
+let user = await userModel.findById(userId);
+if (!user){
+  return res.send("No such user exists");
+}
+let updatedPost=user.posts
+updatedPost.push(message)
+let updatedUser=await userModel.findOneAndUpdate({_id:user._id},{posts:updatedPost},{new:true});
+return res.send({status:true,data:updatedUser})
+}
 
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
 module.exports.deleteUser=deleteUser;
+module.exports.postMessage=postMessage;
